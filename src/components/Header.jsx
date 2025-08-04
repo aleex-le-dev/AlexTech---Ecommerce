@@ -140,44 +140,76 @@ const Header = ({ cartCount = 0, wishlistCount = 0, isAuthenticated = false, use
                 Boutique
               </Link>
               <Link
-                to="/shop?category=montres"
+                to="/admin"
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Montres
-              </Link>
-              <Link
-                to="/shop?category=audio"
-                className="block text-gray-700 hover:text-black transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Audio
-              </Link>
-              <Link
-                to="/shop?category=maison"
-                className="block text-gray-700 hover:text-black transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Maison
+                ADMIN
               </Link>
             </nav>
-            <div className="py-4 border-t border-gray-200 flex items-center space-x-4">
-              <Link
-                to="/wishlist"
-                className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Heart size={20} />
-                <span>Wishlist ({wishlistCount})</span>
-              </Link>
-              <Link
-                to="/cart"
-                className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <ShoppingBag size={20} />
-                <span>Panier ({cartCount})</span>
-              </Link>
+            <div className="py-4 border-t border-gray-200 space-y-4">
+              {isAuthenticated ? (
+                <>
+                  <div className="px-4 py-2 text-sm text-gray-500 border-b border-gray-100">
+                    Bonjour, {user?.firstName || 'Utilisateur'}
+                  </div>
+                  <Link
+                    to="/account"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={20} />
+                    <span>Mon compte</span>
+                  </Link>
+                  <button 
+                    onClick={() => {
+                      onLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center space-x-2 text-red-600 hover:text-red-700 transition-colors w-full text-left"
+                  >
+                    <User size={20} />
+                    <span>Se déconnecter</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={20} />
+                    <span>Se connecter</span>
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={20} />
+                    <span>S'inscrire</span>
+                  </Link>
+                </>
+              )}
+              <div className="border-t border-gray-200 pt-4 flex items-center space-x-4">
+                <Link
+                  to="/wishlist"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Heart size={20} />
+                  <span>Wishlist ({wishlistCount})</span>
+                </Link>
+                <Link
+                  to="/cart"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-black transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <ShoppingBag size={20} />
+                  <span>Panier ({cartCount})</span>
+                </Link>
+              </div>
             </div>
           </div>
         )}
