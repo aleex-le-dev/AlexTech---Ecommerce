@@ -11,8 +11,13 @@ const Header = ({ cartCount = 0, wishlistCount = 0 }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-light">
-            TechConnect
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="https://cystem.fr/wp-content/uploads/2022/06/maison-domotique-nuit.jpg" 
+              alt="TechConnect Logo" 
+              className="h-10 w-10 rounded-full object-cover"
+            />
+            <span className="text-2xl font-light">TechConnect</span>
           </Link>
 
           {/* Desktop Navigation */}
