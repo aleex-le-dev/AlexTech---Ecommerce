@@ -10,6 +10,14 @@ import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
 import Legal from './pages/Legal';
 import Admin from './pages/Admin';
+import Contact from './pages/Contact';
+import Livraison from './pages/Livraison';
+import Retours from './pages/Retours';
+import Remboursement from './pages/Remboursement';
+import FAQ from './pages/FAQ';
+import Account from './pages/Account';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import CookieBanner from './components/CookieBanner';
 import AdminBanner from './components/AdminBanner';
 import './App.css';
@@ -19,18 +27,23 @@ function App() {
   const [wishlist, setWishlist] = useState([]);
   const [showCookieBanner, setShowCookieBanner] = useState(true);
   const [showAdminBanner, setShowAdminBanner] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
+  // Charger les données depuis localStorage au démarrage
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     const savedWishlist = localStorage.getItem('wishlist');
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-    if (savedWishlist) {
-      setWishlist(JSON.parse(savedWishlist));
-    }
+    const savedAuth = localStorage.getItem('isAuthenticated');
+    const savedUser = localStorage.getItem('user');
+
+    if (savedCart) setCart(JSON.parse(savedCart));
+    if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+    if (savedAuth) setIsAuthenticated(JSON.parse(savedAuth));
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
+  // Sauvegarder les données dans localStorage quand elles changent
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
@@ -39,70 +52,77 @@ function App() {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
-  const addToCart = (product, quantity = 1, selectedSize = null, selectedColor = null) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => 
-        item.id === product.id && 
-        item.selectedSize === selectedSize && 
-        item.selectedColor === selectedColor
-      );
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
+  }, [isAuthenticated]);
 
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
+
+  // Fonctions d'authentification
+  const login = (userData) => {
+    setIsAuthenticated(true);
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
+  const register = (userData) => {
+    setIsAuthenticated(true);
+    setUser(userData);
+  };
+
+  // Fonctions pour le panier
+  const addToCart = (product) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === product.id);
       if (existingItem) {
         return prevCart.map(item =>
-          item.id === product.id && 
-          item.selectedSize === selectedSize && 
-          item.selectedColor === selectedColor
-            ? { ...item, quantity: item.quantity + quantity }
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
             : item
         );
-      } else {
-        return [...prevCart, { 
-          ...product, 
-          quantity, 
-          selectedSize, 
-          selectedColor 
-        }];
       }
+      return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (productId, selectedSize = null, selectedColor = null) => {
-    setCart(prevCart => 
-      prevCart.filter(item => 
-        !(item.id === productId && 
-          item.selectedSize === selectedSize && 
-          item.selectedColor === selectedColor)
-      )
-    );
+  const removeFromCart = (productId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== productId));
   };
 
-  const updateQuantity = (productId, quantity, selectedSize = null, selectedColor = null) => {
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === productId && 
-        item.selectedSize === selectedSize && 
-        item.selectedColor === selectedColor
-          ? { ...item, quantity: Math.max(0, quantity) }
-          : item
-      ).filter(item => item.quantity > 0)
-    );
+  const updateCartQuantity = (productId, quantity) => {
+    if (quantity <= 0) {
+      removeFromCart(productId);
+    } else {
+      setCart(prevCart =>
+        prevCart.map(item =>
+          item.id === productId ? { ...item, quantity } : item
+        )
+      );
+    }
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  // Fonctions pour la wishlist
   const addToWishlist = (product) => {
     setWishlist(prevWishlist => {
-      const exists = prevWishlist.find(item => item.id === product.id);
-      if (exists) {
-        return prevWishlist.filter(item => item.id !== product.id);
-      } else {
+      if (!prevWishlist.find(item => item.id === product.id)) {
         return [...prevWishlist, product];
       }
+      return prevWishlist;
     });
   };
 
   const removeFromWishlist = (productId) => {
-    setWishlist(prevWishlist => 
-      prevWishlist.filter(item => item.id !== productId)
-    );
+    setWishlist(prevWishlist => prevWishlist.filter(item => item.id !== productId));
   };
 
   const acceptCookies = () => {
@@ -120,52 +140,100 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <AdminBanner isOpen={showAdminBanner} onClose={closeAdminBanner} />
+      <div className="min-h-screen flex flex-col">
         <Header 
           cartCount={cart.reduce((total, item) => total + item.quantity, 0)}
           wishlistCount={wishlist.length}
-          onOpenAdmin={openAdminBanner}
+          isAuthenticated={isAuthenticated}
+          user={user}
+          onLogout={logout}
         />
-        <main>
+        
+        <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={
-              <Shop 
-                addToCart={addToCart} 
-                addToWishlist={addToWishlist}
-                wishlist={wishlist}
-              />
-            } />
-            <Route path="/product/:id" element={
-              <ProductDetail 
-                addToCart={addToCart} 
-                addToWishlist={addToWishlist}
-                wishlist={wishlist}
-              />
-            } />
+            <Route path="/" element={<Home addToCart={addToCart} addToWishlist={addToWishlist} />} />
+            <Route path="/shop" element={<Shop addToCart={addToCart} addToWishlist={addToWishlist} wishlist={wishlist} />} />
+            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} addToWishlist={addToWishlist} />} />
             <Route path="/cart" element={
               <Cart 
                 cart={cart} 
                 removeFromCart={removeFromCart} 
-                updateQuantity={updateQuantity} 
+                updateCartQuantity={updateCartQuantity}
+                clearCart={clearCart}
               />
             } />
+            <Route path="/checkout" element={<Checkout cart={cart} clearCart={clearCart} />} />
             <Route path="/wishlist" element={
               <Wishlist 
-                wishlist={wishlist}
-                addToCart={addToCart}
-                addToWishlist={addToWishlist}
+                wishlist={wishlist} 
                 removeFromWishlist={removeFromWishlist}
+                addToCart={addToCart}
               />
             } />
-            <Route path="/checkout" element={<Checkout cart={cart} />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/legal/:type" element={<Legal />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/livraison" element={<Livraison />} />
+            <Route path="/retours" element={<Retours />} />
+            <Route path="/remboursement" element={<Remboursement />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/account" element={
+              isAuthenticated ? (
+                <Account user={user} onLogout={logout} />
+              ) : (
+                <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Accès refusé</h2>
+                    <p className="text-gray-600 mb-6">Vous devez être connecté pour accéder à cette page.</p>
+                    <a href="/login" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                      Se connecter
+                    </a>
+                  </div>
+                </div>
+              )
+            } />
+            <Route path="/login" element={
+              isAuthenticated ? (
+                <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Déjà connecté</h2>
+                    <p className="text-gray-600 mb-6">Vous êtes déjà connecté à votre compte.</p>
+                    <a href="/account" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                      Mon compte
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                <Login onLogin={login} />
+              )
+            } />
+            <Route path="/register" element={
+              isAuthenticated ? (
+                <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Déjà connecté</h2>
+                    <p className="text-gray-600 mb-6">Vous êtes déjà connecté à votre compte.</p>
+                    <a href="/account" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+                      Mon compte
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                <Register onRegister={register} />
+              )
+            } />
           </Routes>
         </main>
+
         <Footer />
-        {showCookieBanner && <CookieBanner onAccept={acceptCookies} />}
+        
+        {showCookieBanner && (
+          <CookieBanner onAccept={() => setShowCookieBanner(false)} />
+        )}
+        
+        {showAdminBanner && (
+          <AdminBanner onClose={() => setShowAdminBanner(false)} />
+        )}
       </div>
     </Router>
   );

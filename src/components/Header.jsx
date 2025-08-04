@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Menu, X, ShoppingBag, Heart, User } from 'lucide-react';
 
-const Header = ({ cartCount = 0, wishlistCount = 0 }) => {
+const Header = ({ cartCount = 0, wishlistCount = 0, isAuthenticated = false, user = null, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -28,6 +28,7 @@ const Header = ({ cartCount = 0, wishlistCount = 0 }) => {
             <Link to="/shop" className="text-gray-700 hover:text-black transition-colors">
               Boutique
             </Link>
+          <Link to="/admin" className="text-gray-700 hover:text-black transition-colors">ADMIN</Link>
          
           </nav>
 
@@ -61,9 +62,40 @@ const Header = ({ cartCount = 0, wishlistCount = 0 }) => {
                 </span>
               )}
             </Link>
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <User size={20} />
-            </button>
+            <div className="relative group">
+              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <User size={20} />
+              </button>
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="py-2">
+                  {isAuthenticated ? (
+                    <>
+                      <div className="px-4 py-2 text-sm text-gray-500 border-b border-gray-100">
+                        Bonjour, {user?.firstName || 'Utilisateur'}
+                      </div>
+                      <Link to="/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        Mon compte
+                      </Link>
+                      <button 
+                        onClick={onLogout}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        Se déconnecter
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        Se connecter
+                      </Link>
+                      <Link to="/register" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        S'inscrire
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu button */}
