@@ -8,7 +8,7 @@ const Legal = () => {
       title: "Conditions Générales de Vente",
       content: `
         <h2>1. Objet</h2>
-        <p>Les présentes conditions générales de vente s'appliquent à toutes les prestations de vente conclues par TechConnect sur son site Internet.</p>
+        <p>Les présentes conditions générales de vente s'appliquent à toutes les prestations de vente conclues par AlexTech sur son site Internet.</p>
         
         <h2>2. Prix</h2>
         <p>Les prix de nos produits sont indiqués en euros toutes taxes comprises (TVA et autres taxes applicables au jour de la commande).</p>
@@ -27,6 +27,9 @@ const Legal = () => {
         
         <h2>7. Garanties</h2>
         <p>Tous nos produits bénéficient de la garantie légale de conformité et de la garantie des vices cachés, prévues par les articles 1641 et suivants du Code civil.</p>
+        
+        <h2>8. Remboursement</h2>
+        <p>En cas d'exercice du droit de rétractation ou de retour d'un produit défectueux, le remboursement sera effectué dans un délai maximum de 14 jours à compter de la réception du retour. Le remboursement inclut le prix du produit et les frais de livraison initiaux.</p>
       `
     },
     privacy: {
@@ -108,6 +111,69 @@ const Legal = () => {
         <p>En cas de produit défectueux, nous nous engageons à le remplacer ou à vous rembourser intégralement, frais de retour inclus.</p>
       `
     },
+    refund: {
+      title: "Politique de Remboursement",
+      content: `
+        <h2>1. Délais de remboursement</h2>
+        <p>Nous nous engageons à traiter votre demande de remboursement dans un délai maximum de 14 jours ouvrés à compter de la réception de votre retour ou de l'annulation de votre commande.</p>
+        
+        <h2>2. Conditions d'éligibilité au remboursement</h2>
+        <p><strong>Remboursement complet :</strong> Produits retournés dans leur état d'origine, complets et dans leur emballage d'origine dans les 14 jours suivant la réception.</p>
+        <p><strong>Remboursement partiel :</strong> Produits présentant des signes d'usage ou d'usure normale, avec déduction de la dépréciation.</p>
+        <p><strong>Aucun remboursement :</strong> Produits personnalisés, produits numériques téléchargés, produits endommagés par l'utilisateur.</p>
+        
+        <h2>3. Montant du remboursement</h2>
+        <p>Le remboursement inclut :</p>
+        <ul>
+          <li>Le prix du produit</li>
+          <li>Les frais de livraison initiaux (si applicable)</li>
+          <li>Les frais de retour (en cas de produit défectueux)</li>
+        </ul>
+        <p>Les frais de retour restent à votre charge sauf en cas de produit défectueux ou d'erreur de notre part.</p>
+        
+        <h2>4. Méthodes de remboursement</h2>
+        <p>Le remboursement sera effectué selon le mode de paiement utilisé lors de la commande :</p>
+        <ul>
+          <li><strong>Carte bancaire :</strong> Remboursement sur la carte utilisée (délai 3-5 jours ouvrés)</li>
+          <li><strong>PayPal :</strong> Remboursement sur le compte PayPal (délai 1-3 jours ouvrés)</li>
+          <li><strong>Chèque :</strong> Envoi d'un chèque par courrier (délai 7-10 jours ouvrés)</li>
+        </ul>
+        
+        <h2>5. Procédure de demande de remboursement</h2>
+        <p>Pour demander un remboursement :</p>
+        <ol>
+          <li>Connectez-vous à votre compte client</li>
+          <li>Accédez à la section "Mes commandes"</li>
+          <li>Sélectionnez la commande concernée</li>
+          <li>Cliquez sur "Demander un remboursement"</li>
+          <li>Remplissez le formulaire de retour</li>
+          <li>Imprimez l'étiquette de retour prépayée</li>
+          <li>Expédiez le produit dans les 7 jours</li>
+        </ol>
+        
+        <h2>6. Suivi du remboursement</h2>
+        <p>Vous recevrez des emails de confirmation à chaque étape :</p>
+        <ul>
+          <li>Confirmation de réception de votre demande</li>
+          <li>Confirmation de réception du retour</li>
+          <li>Confirmation du traitement du remboursement</li>
+          <li>Confirmation de l'envoi du remboursement</li>
+        </ul>
+        
+        <h2>7. Cas particuliers</h2>
+        <p><strong>Commande annulée avant expédition :</strong> Remboursement immédiat dans un délai de 24-48h.</p>
+        <p><strong>Produit défectueux :</strong> Remboursement complet avec frais de retour inclus.</p>
+        <p><strong>Erreur de notre part :</strong> Remboursement complet avec compensation si applicable.</p>
+        
+        <h2>8. Contact pour les remboursements</h2>
+        <p>Pour toute question concernant votre remboursement :</p>
+        <ul>
+          <li>Email : remboursements@AlexTech.fr</li>
+          <li>Téléphone : 01 23 45 67 89 (option 2)</li>
+          <li>Chat en ligne : Disponible du lundi au vendredi de 9h à 18h</li>
+        </ul>
+      `
+    },
     contact: {
       title: "Contact",
       content: `
@@ -115,14 +181,14 @@ const Legal = () => {
         <p>Pour toute question concernant nos produits, votre commande ou notre service client, n'hésitez pas à nous contacter :</p>
         
         <h3>Par email</h3>
-        <p>contact@techconnect.fr</p>
+        <p>contact@AlexTech.fr</p>
         
         <h3>Par téléphone</h3>
         <p>01 23 45 67 89<br/>
         Du lundi au vendredi de 9h à 18h</p>
         
         <h3>Par courrier</h3>
-        <p>TechConnect<br/>
+        <p>AlexTech<br/>
         123 Rue de la Tech<br/>
         75001 Paris, France</p>
         
@@ -151,16 +217,23 @@ const Legal = () => {
         <h3>Puis-je retourner un produit ?</h3>
         <p>Oui, vous disposez de 14 jours pour retourner un produit dans son état d'origine.</p>
         
+        <h2>Remboursements</h2>
+        <h3>Dans quel délai serai-je remboursé ?</h3>
+        <p>Le remboursement est effectué dans un délai maximum de 14 jours à compter de la réception du retour.</p>
+        
+        <h3>Quels sont les frais de retour ?</h3>
+        <p>Les frais de retour sont à votre charge sauf en cas de produit défectueux ou d'erreur de notre part.</p>
+        
         <h2>Garantie</h2>
         <h3>Quelle est la garantie de vos produits ?</h3>
         <p>Tous nos produits bénéficient de la garantie légale de 2 ans minimum.</p>
       `
     },
     about: {
-      title: "À propos de TechConnect",
+      title: "À propos de AlexTech",
       content: `
         <h2>Notre histoire</h2>
-        <p>TechConnect est né de la passion pour l'innovation technologique et le désir de rendre les objets connectés accessibles à tous. Depuis notre création, nous sélectionnons avec soin les meilleurs produits connectés pour améliorer votre quotidien.</p>
+        <p>AlexTech est né de la passion pour l'innovation technologique et le désir de rendre les objets connectés accessibles à tous. Depuis notre création, nous sélectionnons avec soin les meilleurs produits connectés pour améliorer votre quotidien.</p>
         
         <h2>Notre mission</h2>
         <p>Nous nous engageons à vous proposer une sélection rigoureuse de produits connectés innovants, alliant qualité, design et fonctionnalité. Notre objectif est de vous accompagner dans la transformation numérique de votre maison et de votre mode de vie.</p>

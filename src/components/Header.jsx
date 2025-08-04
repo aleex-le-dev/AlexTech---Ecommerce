@@ -14,10 +14,10 @@ const Header = ({ cartCount = 0, wishlistCount = 0 }) => {
           <Link to="/" className="flex items-center space-x-3">
             <img 
               src="https://cystem.fr/wp-content/uploads/2022/06/maison-domotique-nuit.jpg" 
-              alt="TechConnect Logo" 
+              alt="AlexTech Logo" 
               className="h-10 w-10 rounded-full object-cover"
             />
-            <span className="text-2xl font-light">TechConnect</span>
+            <span className="text-2xl font-light">AlexTech</span>
           </Link>
 
           {/* Desktop Navigation */}

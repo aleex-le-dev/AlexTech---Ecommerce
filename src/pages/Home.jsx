@@ -13,14 +13,14 @@ const Home = () => {
         <div className="absolute inset-0">
           <img
             src="https://cystem.fr/wp-content/uploads/2022/06/maison-domotique-nuit.jpg"
-            alt="TechConnect Hero"
+            alt="AlexTech Hero"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0  bg-opacity-40"></div>
         </div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-5xl md:text-7xl font-light mb-6">
-            TechConnect
+            AlexTech
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
             Découvrez notre sélection de produits connectés innovants pour une vie plus intelligente
@@ -102,7 +102,7 @@ const Home = () => {
       {/* Video Section */}
       <section className="py-20 bg-gray-100 text-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-light mb-8">Découvrez TechConnect</h2>
+          <h2 className="text-3xl font-light mb-8">Découvrez AlexTech</h2>
           <div className="relative max-w-4xl mx-auto">
             <div className="aspect-video bg-gray-200 flex items-center justify-center">
               <button className="flex items-center space-x-2 bg-black text-white px-6 py-3 hover:bg-gray-800 transition-colors">
