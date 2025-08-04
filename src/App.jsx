@@ -10,12 +10,14 @@ import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
 import Legal from './pages/Legal';
 import CookieBanner from './components/CookieBanner';
+import AdminBanner from './components/AdminBanner';
 import './App.css';
 
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [showCookieBanner, setShowCookieBanner] = useState(true);
+  const [showAdminBanner, setShowAdminBanner] = useState(true);
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -107,12 +109,22 @@ function App() {
     localStorage.setItem('cookiesAccepted', 'true');
   };
 
+  const openAdminBanner = () => {
+    setShowAdminBanner(true);
+  };
+
+  const closeAdminBanner = () => {
+    setShowAdminBanner(false);
+  };
+
   return (
     <Router>
       <div className="App">
+        <AdminBanner isOpen={showAdminBanner} onClose={closeAdminBanner} />
         <Header 
           cartCount={cart.reduce((total, item) => total + item.quantity, 0)}
           wishlistCount={wishlist.length}
+          onOpenAdmin={openAdminBanner}
         />
         <main>
           <Routes>
