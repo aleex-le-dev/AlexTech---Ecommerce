@@ -9,6 +9,9 @@ const AdminBanner = ({ isOpen, onClose }) => {
     e.preventDefault();
     // Logique de connexion admin ici
     console.log('Tentative de connexion admin:', { email, password });
+    if (email === 'admin@admin.fr' && password === 'admin') {
+      window.location.href = '/admin';
+    }
   };
 
   if (!isOpen) return null;

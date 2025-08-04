@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Wishlist from './pages/Wishlist';
 import Legal from './pages/Legal';
+import Admin from './pages/Admin';
 import CookieBanner from './components/CookieBanner';
 import AdminBanner from './components/AdminBanner';
 import './App.css';
@@ -159,6 +160,7 @@ function App() {
               />
             } />
             <Route path="/checkout" element={<Checkout cart={cart} />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/legal/:type" element={<Legal />} />
           </Routes>
         </main>
