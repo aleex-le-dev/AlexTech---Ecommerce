@@ -28,7 +28,7 @@ const ProductDetail = ({ addToCart, addToWishlist, wishlist }) => {
     );
   }
 
-  const isInWishlist = wishlist.some(item => item.id === product.id);
+  const isInWishlist = (wishlist || []).some(item => item.id === product.id);
 
   const handleAddToCart = () => {
     addToCart(product, quantity, selectedSize, selectedColor);

@@ -153,7 +153,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} addToWishlist={addToWishlist} />} />
             <Route path="/shop" element={<Shop addToCart={addToCart} addToWishlist={addToWishlist} wishlist={wishlist} />} />
-            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} addToWishlist={addToWishlist} />} />
+            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} addToWishlist={addToWishlist} wishlist={wishlist} />} />
             <Route path="/cart" element={
               <Cart 
                 cart={cart} 
